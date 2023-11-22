@@ -4,12 +4,14 @@ const state = {
         enemy: document.querySelector(".enemy"),
         timeLeft: document.querySelector("#time-left"),
         score: document.querySelector("#score"),
+        lives: document.querySelector("#lives"),
     },
     values: {
         gameVelocity: 1000,
         hitPosition: 0,
         result: 0,
-        curretTime: 60,
+        curretTime: 10,
+        numberLives: 3,
     },
 
     actions: {
@@ -23,9 +25,24 @@ function countDown() {
     state.view.timeLeft.textContent = state.values.curretTime;
 
     if (state.values.curretTime <= 0) {
+        // clearInterval(state.actions.countDownTimerId);
+        // clearInterval(state.actions.timerId);
+        
+        alert("Game Over! O seu resultado foi: " + state.values.result);
+        countLives();
+    }
+}
+
+function countLives() {
+    state.values.numberLives--;
+    state.view.lives.textContent = "x" + state.values.numberLives;
+    state.values.curretTime = 10;
+    
+    if (state.values.numberLives < 1) {
         clearInterval(state.actions.countDownTimerId);
         clearInterval(state.actions.timerId);
-        alert("Game Over! O seu resultado foi: " + state.values.result);
+        alert("A página será recarregada!")
+        location.reload();
     }
 }
 
